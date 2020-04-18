@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 此为除了mybatis主配置文件以外，mybatis另外一个重要的配置文件，他将dao层的方法与对数据库的具体操作相映射，
+从而达到了实体类以及实体类的属性与数据库表对应的效果（ORM思想）-->
+<mapper namespace="com.ischoolbar.programmer.dao.admin.AuthorityDao">
+	<!-- 权限插入操作 -->
+	<insert id="add" parameterType="Authority">
+		insert into authority(id,roleId,menuId) values(null,#{roleId},#{menuId})
+	</insert>
+	<!-- 权限信息搜索查询 -->
+	<select id="findListByRoleId" parameterType="Long" resultType="Authority">
+		select * from authority 
+		<if test="_parameter != null">
+			where roleId = #{roleId} 
+		</if>
+	</select>
+	
+	<!-- 删除权限信息 -->
+	<delete id="deleteByRoleId" parameterType="Long">
+		delete from authority where roleId = #{roleId}
+	</delete>
+</mapper>
